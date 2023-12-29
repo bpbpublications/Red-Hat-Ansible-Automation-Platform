@@ -1,0 +1,12 @@
+---
+- name: Activate License
+  hosts: all
+  vars:
+    manifest: "/tmp/my_manifest.zip"
+  tasks:
+  - name: Set the license using manifest file
+    ansible.controller.license:
+      manifest: "{{ manifest }}"
+      controller_host: ac.example.com
+      controller_username: admin
+      controller_password: redhat

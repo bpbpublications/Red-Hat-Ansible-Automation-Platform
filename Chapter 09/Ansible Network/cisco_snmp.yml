@@ -1,0 +1,12 @@
+---
+- name: Cisco Configuration
+  hosts: cisco
+  gather_facts: false
+  vars:
+    snmp_config:
+      - snmp-server community ansible-public RO
+      - snmp-server community ansible-private RW
+  tasks:
+    - name: Cisco Configuration present
+      cisco.ios.config:
+        lines: "{{ snmp_config }}"

@@ -1,0 +1,11 @@
+scrape_configs:
+  - job_name: 'controller'
+    tls_config:
+        insecure_skip_verify: True
+    metrics_path: /api/v2/metrics
+    scrape_interval: 5s
+    scheme: https
+    bearer_token: <token_value>
+    static_configs:
+        - targets:
+            - <controller_host>

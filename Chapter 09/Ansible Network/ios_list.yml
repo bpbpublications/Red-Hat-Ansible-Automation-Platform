@@ -1,0 +1,10 @@
+---
+- name: Listing Ansible Network Inventory
+  hosts: cisco
+  gather_facts: false
+  tasks:
+    - name: Network Resource Manager
+      ansible.builtin.include_role:
+        name: resource_manager
+      vars:
+        action: list

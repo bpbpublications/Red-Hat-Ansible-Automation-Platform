@@ -1,0 +1,11 @@
+---
+- name: Security YUM
+  hosts: all
+  become: true
+  tasks:
+    - name: Apply Security via YUM
+      ansible.builtin.yum:
+        name: "*"
+        state: latest
+        security: true
+        update_cache: true

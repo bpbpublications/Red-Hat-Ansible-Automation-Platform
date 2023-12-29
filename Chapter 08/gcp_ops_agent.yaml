@@ -1,0 +1,23 @@
+logging:
+  receivers:
+    nginx_default_access:
+      type: nginx_access
+    nginx_default_error:
+      type: nginx_error
+  service:
+    pipelines:
+      nginx:
+        receivers:
+          - nginx_default_access
+          - nginx_default_error
+metrics:
+  receivers:
+    nginx_metrics:
+      type: nginx
+      stub_status_url: http://127.0.0.1:80/status
+      collection_interval: 60s
+  service:
+    pipelines:
+      nginx_pipeline:
+        receivers:
+          - nginx_metrics

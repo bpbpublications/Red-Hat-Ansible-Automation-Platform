@@ -1,0 +1,21 @@
+---
+- name: Deploy Docker image
+  hosts: localhost
+  ansible_connection: local
+  tasks:
+  - name: Start container
+    community.docker.docker_container:
+      name: apache
+      image: python:bullseye
+      command: sleep infinity
+
+- name: Connect to Docker container
+  hosts: apache
+  connection: docker
+  tasks:
+  - name: Test connection
+    ansible.builtin.ping:
+  - name: Install apache
+    ansible.builtin.apt:
+      name: apache2
+      update_cache: true

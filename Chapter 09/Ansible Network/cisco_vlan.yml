@@ -1,0 +1,13 @@
+---
+- name: Cisco Configure VLAN
+  hosts: cisco
+  gather_facts: false
+  vars:
+    vlan_id: 10
+    vlan_name: WEB
+  tasks:
+    - name: Ensure VLANs is present
+      cisco.nxos.vlans:
+        config:
+        - vlan_id: "{{ vlan_id }}"
+          name: "{{ vlan_name }}"

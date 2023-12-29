@@ -1,0 +1,44 @@
+---
+- name: Deploy Google Cloud Ops Agent
+  hosts: all
+  become: true
+  roles:
+    - role: googlecloudplatform.google_cloud_ops_agents
+      vars:
+        agent_type: ops-agent
+        version: 1.*.*
+        main_config_file: ops_agent.yaml
+     notify:
+        - Restart Ops Agent
+  tasks:
+    - name: Install Nginx
+      ansible.builtin.package: 
+        name: nginx
+        state: present
+    - name: Customize Nginx for telemetry
+      ansible.builtin.template:
+        src: ansible_templates/status.conf
+        dest: /etc/nginx/conf.d/status.conf
+      notify:
+        - Restart Nginx
+    - name: Start nginx
+      ansible.builtin.service:
+        name: nginx
+        state: started
+        enabled: yes
+    - name: Start Ops Agent
+      ansible.builtin.service:
+        name: google-cloud-ops-agent
+        state: started
+        enabled: yes
+  handlers:
+    - name: Restart Nginx
+      ansible.builtin.service:
+        name: nginx
+        state: restarted
+        enabled: yes
+    - name: Restart Ops Agent
+      ansible.builtin.service:
+        name: google-cloud-ops-agent
+        state: restarted
+        enabled: yes

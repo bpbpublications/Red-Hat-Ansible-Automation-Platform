@@ -1,0 +1,17 @@
+---
+- name: Deploy Ansible Network
+  hosts: ios
+  gather_facts: false
+  tasks:
+    - name: Deploy Network Resource Manager
+      ansible.builtin.include_role:
+        name: resource_manager
+      vars:
+        action: deploy
+        resources:
+          - 'interfaces'
+          - 'l2_interfaces'
+          - 'l3_interfaces'
+          - 'ospfv2'
+          - 'ospfv3'
+          - 'ospf_interfaces'

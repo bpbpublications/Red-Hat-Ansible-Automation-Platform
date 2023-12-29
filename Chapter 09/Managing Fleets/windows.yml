@@ -1,0 +1,12 @@
+---
+- name: Windows Security
+  hosts: all
+  tasks:
+    - name: Install all critical and security updates
+      ansible.windows.win_updates:
+        category_names:
+          - CriticalUpdates
+          - SecurityUpdates
+        state: installed
+        reboot: true
+        log_path: C:\ansible.txt

@@ -1,0 +1,10 @@
+---
+- name: Rolling update YUM
+  hosts: all
+  become: true
+  tasks:
+    - name: Updated YUM system
+      ansible.builtin.yum:
+        name: "*"
+        state: latest
+        update_cache: true
